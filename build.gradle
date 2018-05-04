@@ -6,21 +6,43 @@ buildscript {
         classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.4'
     }
 }
-
+plugins { id "com.jfrog.bintray" version "1.7.3" }
 apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'java'
 apply plugin: 'maven-publish'
+apply plugin: 'maven'
 
 publishing {
     publications {
         shadow(MavenPublication) { publication ->
             project.shadow.component(publication)
+            groupId = 'by.orangesoft'
+            artifactId = 'navigine-wrapper'
+            version '0.2'
+        }
+    }
+}
+
+bintray {
+    user = 'alexander-tararenko'
+    key = '47bc02ccdf733471fa698cba39f38823c6ccfcb3'
+    pkg {
+        repo = 'maven'
+        name = 'navigine-wrapper'
+        userOrg = 'Orangesoft'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/StArtifex/navigine-wrapper'
+        version {
+            name = '0.2'
+            desc = 'description'
+            released = new Date()
+            vcsTag = '0.2'
         }
     }
 }
 
 group 'by.orangesoft'
-version '0.1'
+version '0.2'
 
 sourceCompatibility = 1.8
 
@@ -30,5 +52,5 @@ repositories {
 }
 
 dependencies {
-    compile files('libs/NavigineSDK.jar')
+    implementation files('libs/NavigineSDK.jar')
 }
