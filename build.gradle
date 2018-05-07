@@ -1,3 +1,10 @@
+allprojects {
+    task wrapper(type: Wrapper) {
+        gradleVersion = '4.4'
+        distributionType = Wrapper.DistributionType.ALL
+    }
+}
+
 buildscript {
     repositories {
         jcenter()
@@ -20,7 +27,7 @@ publishing {
 }
 
 group 'by.orangesoft'
-version '0.3'
+version '0.4'
 
 sourceCompatibility = 1.8
 
@@ -30,6 +37,10 @@ repositories {
 
 shadowJar {
     archiveName = "$baseName-$version.$extension"
+}
+
+artifacts {
+    archives shadowJar
 }
 
 dependencies {
